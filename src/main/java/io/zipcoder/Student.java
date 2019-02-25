@@ -2,6 +2,7 @@ package io.zipcoder;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Student {
 
@@ -12,13 +13,17 @@ public class Student {
     public Student() {
         firstName = "";
         lastName = "";
-        examScores = new ArrayList<Double>();
+        examScores = new ArrayList<>();
     }
 
-    public Student(String firstName, String lastName, ArrayList<Double> examScores) {
+    public Student(String firstName, String lastName, Double... examScores) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.examScores = examScores;
+        if (examScores != null) {
+            this.examScores = new ArrayList<>(Arrays.asList(examScores));
+        } else {
+            this.examScores = new ArrayList<>();
+        }
     }
 
 
@@ -30,8 +35,9 @@ public class Student {
         return lastName;
     }
 
-    public ArrayList<Double> getExamScores() {
-        return examScores;
+    public Double[] getExamScores() {
+        Double[] examScoresAsArray = new Double[examScores.size()];
+        return examScores.toArray(examScoresAsArray);
     }
 
     public void setFirstName(String firstName) {
@@ -42,8 +48,8 @@ public class Student {
         this.lastName = lastName;
     }
 
-    public void setExamScores(ArrayList<Double> examScores) {
-        this.examScores = examScores;
+    public void setExamScores(Double[] examScores) {
+        this.examScores = new ArrayList<>(Arrays.asList(examScores));
     }
 
     public Integer getNumberOfExamsTaken() {

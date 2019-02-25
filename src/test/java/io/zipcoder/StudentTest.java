@@ -4,6 +4,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class StudentTest {
 
@@ -12,18 +14,20 @@ public class StudentTest {
         // Given
         String givenFirstName = "";
         String givenLastName = "";
-        ArrayList<Double> givenExamScores = new ArrayList<Double>();
+        Double[] givenExamScores = {};
 
         // When
         Student student = new Student();
         String retrievedFirstName = student.getFirstName();
         String retrievedLastName = student.getLastName();
-        ArrayList<Double> retrievedExamScores = student.getExamScores();
+        List<Double> retrievedExamScores = Arrays.asList(student.getExamScores());
 
         // Then
         Assert.assertEquals(givenFirstName, retrievedFirstName);
         Assert.assertEquals(givenLastName, retrievedLastName);
-        Assert.assertEquals(givenExamScores, retrievedExamScores);
+        for(Double examScore: givenExamScores) {
+            Assert.assertTrue(retrievedExamScores.contains(examScore));
+        }
     }
 
     @Test
@@ -31,28 +35,27 @@ public class StudentTest {
         // Given student data
         String givenFirstName = "Debra";
         String givenLastName = "Johnson";
-        ArrayList<Double> givenExamScores = new ArrayList<Double>();
-        givenExamScores.add(0.87);
-        givenExamScores.add(0.93);
-        givenExamScores.add(0.91);
+        Double[] givenExamScores = {0.91, 0.86, 0.93};
 
         // When a student is constructed with the given data
         Student student = new Student(givenFirstName, givenLastName, givenExamScores);
         String retrievedFirstName = student.getFirstName();
         String retrievedLastName = student.getLastName();
-        ArrayList<Double> retrievedExamScores = student.getExamScores();
+        List<Double> retrievedExamScores = Arrays.asList(student.getExamScores());
 
         // Then we expect the given data to match the retrieved data
         Assert.assertEquals(givenFirstName, retrievedFirstName);
         Assert.assertEquals(givenLastName, retrievedLastName);
-        Assert.assertEquals(givenExamScores, retrievedExamScores);
+        for(Double examScore: givenExamScores) {
+            Assert.assertTrue(retrievedExamScores.contains(examScore));
+        }
     }
 
     @Test
     public void getFirstNameTest() {
         // Given
         String givenFirstName = "Anna";
-        Student student = new Student(givenFirstName, "", new ArrayList<Double>());
+        Student student = new Student(givenFirstName, "", null);
 
         // When
         String retrievedFirstName = student.getFirstName();
@@ -65,7 +68,7 @@ public class StudentTest {
     public void getLastNameTest() {
         // Given
         String givenLastName = "Watson";
-        Student student = new Student("", givenLastName, new ArrayList<Double>());
+        Student student = new Student("", givenLastName, null);
 
         // When
         String retrievedLastName = student.getLastName();
@@ -77,17 +80,16 @@ public class StudentTest {
     @Test
     public void getExamScoresTest() {
         // Given
-        ArrayList<Double> givenExamScores = new ArrayList<>();
-        givenExamScores.add(0.71);
-        givenExamScores.add(0.98);
-        givenExamScores.add(0.84);
+        Double[] givenExamScores = {0.67, 0.98, 0.87};
         Student student = new Student("", "", givenExamScores);
 
         // When
-        ArrayList<Double> retrievedExamScores = student.getExamScores();
+        List<Double> retrievedExamScores = Arrays.asList(student.getExamScores());
 
         // Then
-        Assert.assertEquals(givenExamScores, retrievedExamScores);
+        for (Double examScore: givenExamScores) {
+            Assert.assertTrue(retrievedExamScores.contains(examScore));
+        }
     }
 
     @Test
@@ -126,19 +128,18 @@ public class StudentTest {
     public void setExamScores() {
         // Given
         Student student = new Student("", "", null);
-        ArrayList<Double> givenExamScores = new ArrayList<>();
-        givenExamScores.add(0.92);
-        givenExamScores.add(0.94);
-        givenExamScores.add(0.87);
+        Double[] givenExamScores = {0.56, 0.78, 0.74};
 
         // When
         student.setExamScores(givenExamScores);
 
         // When
-        ArrayList<Double> retrievedExamScores = student.getExamScores();
+        List<Double> retrievedExamScores = Arrays.asList(student.getExamScores());
 
         // Then
-        Assert.assertEquals(givenExamScores, retrievedExamScores);
+        for (Double examScore: givenExamScores) {
+            Assert.assertTrue(retrievedExamScores.contains(examScore));
+        }
     }
 
     @Test
@@ -157,11 +158,7 @@ public class StudentTest {
     @Test
     public void getNumberOfExamsTaken2() {
         // Given
-        ArrayList<Double> examScores = new ArrayList<>();
-        examScores.add(0.67);
-        examScores.add(0.56);
-        examScores.add(0.92);
-        Student student = new Student("", "", examScores);
+        Student student = new Student("", "", 0.78, 0.98, 0.97);
         Integer expected = 3;
 
         // When
@@ -174,11 +171,7 @@ public class StudentTest {
     @Test
     public void getExamScoresAsStringTest1() {
         // Given
-        ArrayList<Double> examScores = new ArrayList<>();
-        examScores.add(0.70);
-        examScores.add(0.65);
-        examScores.add(0.89);
-        Student student = new Student("", "", examScores);
+        Student student = new Student("", "", 0.70, 0.65, 0.89);
         String expected = "Exam Scores:\n\tExam 1 -> 0.70\n\tExam 2 -> 0.65\n\tExam 3 -> 0.89";
 
         // When
@@ -205,54 +198,48 @@ public class StudentTest {
     public void addExamScoreTest1() {
         // Given
         Student student = new Student();
-        ArrayList<Double> expectedExamScores = new ArrayList<>();
-        expectedExamScores.add(0.78);
-
+        Double[] expectedExamScores = {0.78};
         // When
         student.addExamScore(0.78);
 
         // When
-        ArrayList<Double> actualExamScores = student.getExamScores();
+        List<Double> actualExamScores = Arrays.asList(student.getExamScores());
 
         // Then
-        Assert.assertEquals(expectedExamScores, actualExamScores);
+        for (Double examScore: expectedExamScores) {
+            Assert.assertTrue(actualExamScores.contains(examScore));
+        }
     }
 
     @Test
     public void addExamScoreTest2() {
         // Given
-        ArrayList<Double> examScores = new ArrayList<>();
-        examScores.add(0.93);
-        examScores.add(0.89);
-        Student student = new Student("", "", examScores);
-        ArrayList<Double> expectedExamScores = new ArrayList<>();
-        expectedExamScores.add(0.93);
-        expectedExamScores.add(0.89);
-        expectedExamScores.add(0.72);
+        Student student = new Student("", "", 0.93, 0.89);
+        Double[] expectedExamScores = {0.93, 0.89, 0.72};
 
         // When
         student.addExamScore(0.72);
 
         // When
-        ArrayList<Double> actualExamScores = student.getExamScores();
+        List<Double> actualExamScores = Arrays.asList(student.getExamScores());
 
         // Then
-        Assert.assertEquals(expectedExamScores, actualExamScores);
+        for (Double examScore: expectedExamScores) {
+            Assert.assertTrue(actualExamScores.contains(examScore));
+        }
     }
 
     @Test
     public void setExamScoreTest() {
         // Given
-        ArrayList<Double> examScores = new ArrayList<>();
-        examScores.add(0.83);
-        Student student = new Student("", "", examScores);
+        Student student = new Student("", "", 0.83);
         Double expected = 0.91;
 
         // When
         student.setExamScore(1, 0.91);
 
         // When
-        Double actual = student.getExamScores().get(0);
+        Double actual = student.getExamScores()[0];
 
         // Then
         Assert.assertEquals(expected, actual);
@@ -261,11 +248,7 @@ public class StudentTest {
     @Test
     public void getAverageExamScoreTest() {
         // Given
-        ArrayList<Double> examScores = new ArrayList<>();
-        examScores.add(0.89);
-        examScores.add(0.80);
-        examScores.add(0.74);
-        Student student = new Student("", "", examScores);
+        Student student = new Student("", "", 0.89, 0.80, 0.74);
         Double expected = 0.81;
 
         // When
@@ -278,11 +261,7 @@ public class StudentTest {
     @Test
     public void toStringTest() {
         // Given
-        ArrayList<Double> examScores = new ArrayList<>();
-        examScores.add(0.94);
-        examScores.add(0.89);
-        examScores.add(0.93);
-        Student student = new Student("Frank", "Carter", examScores);
+        Student student = new Student("Frank", "Carter", 0.94, 0.89, 0.93);
         String expected = "Student Name: Frank Carter\n> Average Score: 0.92\n> Exam Scores:\n\t" +
                 "Exam 1 -> 0.94\n\tExam 2 -> 0.89\n\tExam 3 -> 0.93";
 
