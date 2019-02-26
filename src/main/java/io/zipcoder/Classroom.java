@@ -1,7 +1,10 @@
 package io.zipcoder;
 
+import io.zipcoder.StudentComparators.ByScoreComparator;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class Classroom {
 
@@ -29,16 +32,48 @@ public class Classroom {
 
     public Student[] getStudents() {
         Student[] studentArray = new Student[students.size()];
-        return students.toArray(studentArray);
+        studentArray =  students.toArray(studentArray);
+        if (studentArray.length == 0) {
+            studentArray = new Student[1];
+        }
+        return studentArray;
     }
 
     public int getMaxNumberOfStudents() {
         return maxNumberOfStudents;
     }
 
-    public static void main(String[] args) {
-        Classroom classroom = new Classroom();
-        System.out.println(classroom.getStudents().length);
+    public Double getAverageExamScore() {
+        Double sumOfAllExamScores = 0.0;
+        int totalNumberOfExams = 0;
+        for (int i = 0; i < students.size(); i++) {
+            sumOfAllExamScores += students.get(i).getSumOfAllExamScores();
+            totalNumberOfExams += students.get(i).getNumberOfExamsTaken();
+        }
+        Double averageExamScore = sumOfAllExamScores/totalNumberOfExams;
+        return Math.round(averageExamScore * 100)/100.0d;
     }
+
+    public void addStudent(Student student) {
+        students.add(student);
+    }
+
+    public void removeStudent(String firstName, String lastName) {
+        for (int i = 0; i < students.size(); i++) {
+            if (students.get(i).getFirstName().equals(firstName) && students.get(i).getLastName().equals(lastName)) {
+                students.remove(students.get(i));
+            }
+        }
+    }
+
+    public Student[] getStudentsByScore() {
+        Comparator<Student> compareStudents = new ByScoreComparator();
+        students.sort(compareStudents);
+        Student[] sortedStudents = new Student[students.size()];
+        sortedStudents = students.toArray(sortedStudents);
+        return sortedStudents;
+    }
+
+
 }
 

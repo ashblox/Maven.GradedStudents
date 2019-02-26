@@ -56,6 +56,14 @@ public class Student {
         return examScores.size();
     }
 
+    public Double getSumOfAllExamScores() {
+        Double sumOfExamScores = 0.0;
+        for (int i = 0; i < examScores.size(); i++) {
+            sumOfExamScores += examScores.get(i);
+        }
+        return sumOfExamScores;
+    }
+
     public String getExamScoresAsString() {
         String examScoresAsString = "";
         if (examScores.size() != 0) {
@@ -76,11 +84,7 @@ public class Student {
     }
 
     public Double getAverageExamScore() {
-        Double average = 0.0;
-        for (int i = 0; i < examScores.size(); i++) {
-            average += examScores.get(i);
-        }
-        average = average/examScores.size();
+        Double average = getSumOfAllExamScores()/examScores.size();
         average = Math.round(average * 100)/100.0d;
         return average;
     }

@@ -169,6 +169,19 @@ public class StudentTest {
     }
 
     @Test
+    public void getSumOfExamScoresTest() {
+        // Given
+        Student student = new Student("","", 0.91, 0.93, 0.87);
+        Double expectedSum = 0.91 + 0.93 + 0.87;
+
+        // When
+        Double actualSum = student.getSumOfAllExamScores();
+
+        // Then
+        Assert.assertEquals(expectedSum, actualSum);
+    }
+
+    @Test
     public void getExamScoresAsStringTest1() {
         // Given
         Student student = new Student("", "", 0.70, 0.65, 0.89);
