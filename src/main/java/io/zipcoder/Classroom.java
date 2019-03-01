@@ -1,10 +1,6 @@
 package io.zipcoder;
 
-import io.zipcoder.StudentComparators.ByScoreComparator;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
+import java.util.*;
 
 public class Classroom {
 
@@ -67,13 +63,20 @@ public class Classroom {
     }
 
     public Student[] getStudentsByScore() {
-        Comparator<Student> compareStudents = new ByScoreComparator();
+        Comparator<Student> compareStudents = new StudentComparator();
         students.sort(compareStudents);
         Student[] sortedStudents = new Student[students.size()];
         sortedStudents = students.toArray(sortedStudents);
         return sortedStudents;
     }
 
+    public Map<Student, String> getGradebook() {
+        Map<Student, String> gradebook = new TreeMap<>(new StudentComparator());
+        for (int i = 0; i < students.size(); i++) {
+            gradebook.put(students.get(i), students.get(i).getAverageGrade());
+        }
+        return gradebook;
+    }
 
 }
 

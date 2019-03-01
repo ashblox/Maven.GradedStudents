@@ -89,6 +89,43 @@ public class Student {
         return average;
     }
 
+    public String getAverageGrade() {
+        Double examScore = getAverageExamScore();
+        if(isGradeAnA(examScore)){
+            return "A";
+        } else if (isGradeAB(examScore)) {
+            return "B";
+        } else if (isGradeAC(examScore)) {
+            return "C";
+        } else if (isGradeAD(examScore)) {
+            return "D";
+        } else if (isGradeAnF(examScore)) {
+            return "F";
+        } else {
+            return "Grade unavailable";
+        }
+    }
+
+    public boolean isGradeAnA(Double examScore) {
+        return examScore >= 0.9;
+    }
+
+    public boolean isGradeAB(Double examScore) {
+        return examScore < 0.9 && examScore > 0.7;
+    }
+
+    public boolean isGradeAC(Double examScore) {
+        return examScore <= 0.7 && examScore >= 0.5;
+    }
+
+    public boolean isGradeAD(Double examScore) {
+        return examScore < 0.5 && examScore > 0.1;
+    }
+
+    public boolean isGradeAnF(Double examScore) {
+        return examScore <= 0.1;
+    }
+
     @Override
     public String toString() {
         String studentToString = String.format("Student Name: %s %s\n> Average Score: %.2f\n> %s",

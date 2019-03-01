@@ -1,12 +1,9 @@
 package io.zipcoder;
 
-import io.zipcoder.StudentComparators.ByScoreComparator;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class ClassroomTest {
 
@@ -178,5 +175,27 @@ public class ClassroomTest {
         Assert.assertTrue(Arrays.equals(expectedStudents, actualStudents));
     }
 
+    @Test
+    public void getGradebookTest() {
+        // Given
+        Student student1 = new Student("Clara", "Dougherty", 0.45);
+        Student student2 = new Student("Deborah", "Hammond", 0.79);
+        Student student3 = new Student("Ryan", "Hyde", 0.67);
+        Student student4 = new Student("Thomas", "Boulden", 0.97);
+        Student student5 = new Student("Shauna", "Myers", 0.45);
+        Classroom classroom = new Classroom(student1, student2, student3, student4, student5);
+        Map<Student, String> expected = new LinkedHashMap<>();
+        expected.put(student4, "A");
+        expected.put(student2, "B");
+        expected.put(student3, "C");
+        expected.put(student1, "D");
+        expected.put(student5, "D");
+
+        // When
+        Map<Student, String> actual = classroom.getGradebook();
+
+        // Then
+        Assert.assertEquals(expected.entrySet(),actual.entrySet());
+    }
 
 }

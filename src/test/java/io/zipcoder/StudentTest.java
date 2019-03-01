@@ -284,4 +284,83 @@ public class StudentTest {
         // Then
         Assert.assertEquals(expected, actual);
     }
+
+    @Test
+    public void isGradeAnATest () {
+        // Given
+        Double examScore = 0.98;
+        Student student = new Student("", "", examScore);
+
+        // When
+        Boolean isGradeAnA = student.isGradeAnA(examScore);
+
+        // Then
+        Assert.assertTrue(isGradeAnA);
+    }
+
+    @Test
+    public void isGradeABTest () {
+        // Given
+        Double examScore = 0.75;
+        Student student = new Student("", "", examScore);
+
+        // When
+        Boolean isGradeAB = student.isGradeAB(examScore);
+
+        // Then
+        Assert.assertTrue(isGradeAB);
+    }
+
+    @Test
+    public void isGradeACTest () {
+        // Given
+        Double examScore = 0.63;
+        Student student = new Student("", "", examScore);
+
+        // When
+        Boolean isGradeAC = student.isGradeAC(examScore);
+
+        // Then
+        Assert.assertTrue(isGradeAC);
+    }
+
+    @Test
+    public void isGradeADTest () {
+        // Given
+        Double examScore = 0.43;
+        Student student = new Student("", "", examScore);
+
+        // When
+        Boolean isGradeAD = student.isGradeAD(examScore);
+
+        // Then
+        Assert.assertTrue(isGradeAD);
+    }
+
+    @Test
+    public void isGradeAnFTest () {
+        // Given
+        Double examScore = 0.09;
+        Student student = new Student("", "", examScore);
+
+        // When
+        Boolean isGradeAnF = student.isGradeAnF(examScore);
+
+        // Then
+        Assert.assertTrue(isGradeAnF);
+    }
+
+    @Test
+    public void getAverageGradeTest() {
+        // Given
+        Double examScore = 0.78;
+        Student student = new Student("", "", examScore);
+        String expected = "B";
+
+        // When
+        String actual = student.getAverageGrade();
+
+        // Then
+        Assert.assertEquals(expected, actual);
+    }
 }
